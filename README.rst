@@ -12,7 +12,7 @@ How to Install
 --------------
 
 You can install this package by execute the command like this
-`pip install exception-sms` in command line. One important thing
+``pip install exception-sms`` in command line. One important thing
 is that this package only support Python3.6 or higher versions.
 
 Examples
