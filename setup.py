@@ -16,7 +16,7 @@ def read(f):
 
 
 setup(
-    name="oracle-connection",
+    name="exception-sms",
     version=exception_sms.__version__,
     description='A package to notify developer that program catched a exception',
     long_description=read('README.rst'),
