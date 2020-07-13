@@ -12,7 +12,8 @@ from exception_sms.to_get_logs import FinalLogger
 
 
 class GetNotification(object):
-    def __init__(self, access_key, secret_key, template_id, author, phone: str or list, log_path):
+    def __init__(self, access_key, secret_key, template_id, author, phone: str or list, log_path, local=None,
+                 mail=None):
         from qiniu import QiniuMacAuth, Sms
         self.access_key = access_key
         self.secret_key = secret_key
@@ -22,6 +23,8 @@ class GetNotification(object):
         self.auth = QiniuMacAuth(self.access_key, self.secret_key)
         self.smser = Sms(self.auth)
         self.log_path = log_path
+        self.local = local
+        self.mail = mail
 
     @staticmethod
     def get_phone_list(phone):
