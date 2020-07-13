@@ -38,7 +38,7 @@ class GetNotification(object):
         def get_info(*args, **kwargs):
             name, res = func.__name__, None
             try:
-                func(*args, **kwargs)
+                res = func(*args, **kwargs)
             except Exception as e:
                 self.smser.sendMessage(self.template_id, self.phone, self.get_params(e, name))
                 logger = FinalLogger(self.log_path)
