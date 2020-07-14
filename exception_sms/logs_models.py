@@ -45,7 +45,12 @@ class GetNotification(object):
             except Exception as e:
                 self.smser.sendMessage(self.template_id, self.phone, self.get_params(e, name))
                 logger = FinalLogger(self.log_path)
-                logger.get_logs(format_exc())
+                string = format_exc()
+                logger.get_logs(string)
+                if self.mail:
+                    with open(self.mail.file, "w+", encoding="utf-8") as f:
+                        f.write(str(string))
+                    self.mail.send_mail()
             finally:
                 return res
 
