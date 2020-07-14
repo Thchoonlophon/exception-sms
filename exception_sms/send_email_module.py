@@ -75,7 +75,7 @@ class SendMail(object):
         # 发送者账号
         msg['From'] = Header(f'{self.username}<{self.username}>', 'utf-8')
         # 接收者账号列表
-        if type(self.cc) == list:
+        if type(self.recv) == list:
             st = [f'{self.recv_name[i]}<{self.recv[i]}>' for i in range(len(self.cc))]
             string = ", ".join(st)
             msg["To"] = Header(string, 'utf-8')
