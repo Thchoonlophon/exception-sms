@@ -18,6 +18,23 @@ lpath_os = os.path.dirname(os.path.abspath(__file__))
 class SendMail(object):
     def __init__(self, username, passwd, recv, recv_name, title, content, email_host=None,
                  cc=None, cc_name=None, file=None, port=25):
+        """
+        To init the class
+        :param username: The username of sender
+        :param passwd: The password of sender
+        :param recv: The email address of receiver, the type of this param
+                      can be string or list, if there are more than one receiver,
+                      you can pass a list here
+        :param recv_name: The name of receiver, the type as same as recv
+        :param title: The subject of email
+        :param content: The content of email
+        :param email_host: The mail sending server, for a example: "smtp.163.com"
+        :param cc: The cc of this email, the type as same as recv
+        :param cc_name: The name of cc, the type as same as recv
+        :param file: Email attachments, must be An absolute path
+        :param port: The port number of the mail sending server, you can search
+                      the actual port number which you wanna use, the default is 25.
+        """
         # 发件人邮箱
         self.username = username
         # 邮箱三方客户端授权码
@@ -56,10 +73,15 @@ class SendMail(object):
         # 邮件主题
         msg['Subject'] = self.title
         # 发送者账号
-        msg['From'] = Header('衡泰智信<%s>' % self.username, 'utf-8')
+        msg['From'] = Header(f'{self.username}<{self.username}>', 'utf-8')
         # 接收者账号列表
-        msg['To'] = Header('%s<%s>' % (self.recv_name, self.recv), 'utf-8')
-        members = [self.recv]
+        if type(self.cc) == list:
+            st = [f'{self.recv_name[i]}<{self.recv[i]}>' for i in range(len(self.cc))]
+            string = ", ".join(st)
+            msg["To"] = Header(string, 'utf-8')
+        else:
+            msg["To"] = Header(f'{self.recv_name}<{self.recv}>', 'utf-8')
+        members = self.recv if type(self.recv) == list else [self.recv]
         if self.cc:
             if type(self.cc) == list:
                 st = [f'{self.cc_name[i]}<{self.cc[i]}>' for i in range(len(self.cc))]
