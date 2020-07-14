@@ -31,8 +31,9 @@ class GetNotification(object):
         self.template_id = template_id
         self.author = author
         self.phone = self.get_phone_list(phone)
-        self.auth = QiniuMacAuth(self.access_key, self.secret_key)
-        self.smser = Sms(self.auth)
+        if self.access_key and self.secret_key:
+            self.auth = QiniuMacAuth(self.access_key, self.secret_key)
+            self.smser = Sms(self.auth)
         self.log_path = log_path
         self.local = local
         self.mail = mail
@@ -54,7 +55,8 @@ class GetNotification(object):
             try:
                 res = func(*args, **kwargs)
             except Exception as e:
-                self.smser.sendMessage(self.template_id, self.phone, self.get_params(e, name))
+                if self.access_key and self.secret_key:
+                    self.smser.sendMessage(self.template_id, self.phone, self.get_params(e, name))
                 logger = FinalLogger(self.log_path)
                 string = format_exc()
                 message = f"{str(self.local)}\n\n{str(string)}\n\n" if self.local else str(string)
