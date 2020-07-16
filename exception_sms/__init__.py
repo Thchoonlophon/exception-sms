@@ -9,9 +9,11 @@
 
 from exception_sms.logs_models import GetNotification
 from exception_sms.to_get_logs import FinalLogger
+from exception_sms.send_email_module import SendMail
 
-__version__ = "0.2.1"
+__version__ = "0.3.0"
 __all__ = [
     "GetNotification",
-    "FinalLogger"
+    "FinalLogger",
+    "SendMail"
 ]

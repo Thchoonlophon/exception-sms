@@ -12,8 +12,8 @@ from exception_sms.to_get_logs import FinalLogger
 
 
 class GetNotification(object):
-    def __init__(self, access_key, secret_key, template_id, author, phone: str or list, log_path, local=None,
-                 mail=None):
+    def __init__(self, access_key, secret_key, template_id, author, phone: str or list,
+                 log_path, local=None, mail=None):
         """
         To init the class
         :param access_key: The access_key of qiniuyun
